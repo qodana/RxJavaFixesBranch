@@ -89,11 +89,12 @@ public final class SingleDematerialize<T, R> extends Maybe<R> {
                 return;
             }
             if (notification.isOnNext()) {
+                assert notification.getValue() != null;
                 downstream.onSuccess(notification.getValue());
             } else if (notification.isOnComplete()) {
                 downstream.onComplete();
             } else {
-                downstream.onError(notification.getError());
+                downstream.onError(Objects.requireNonNull(notification.getError()));
             }
         }
 

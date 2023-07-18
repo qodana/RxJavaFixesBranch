@@ -104,7 +104,7 @@ implements HasUpstreamPublisher<T> {
             // don't create a fresh connection if the current is disposed
             if (conn == null) {
                 PublishConnection<T> fresh = new PublishConnection<>(current, bufferSize);
-                if (!current.compareAndSet(conn, fresh)) {
+                if (!current.compareAndSet(null, fresh)) {
                     continue;
                 }
                 conn = fresh;
@@ -409,7 +409,7 @@ implements HasUpstreamPublisher<T> {
                 // although this is O(n), we don't expect too many child subscribers in general
                 int j = -1;
                 for (int i = 0; i < len; i++) {
-                    if (c[i] == inner) {
+                    if (c[i].equals(inner)) {
                         j = i;
                         break;
                     }

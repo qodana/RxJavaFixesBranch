@@ -66,6 +66,7 @@ public final class ObservableWithLatestFromMany<T, R> extends AbstractObservable
             others = new ObservableSource[8];
 
             try {
+                assert otherIterable != null;
                 for (ObservableSource<?> p : otherIterable) {
                     if (n == others.length) {
                         others = Arrays.copyOf(others, n + (n >> 1));

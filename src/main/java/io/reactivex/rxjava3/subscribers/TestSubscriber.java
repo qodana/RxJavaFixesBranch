@@ -127,10 +127,6 @@ implements FlowableSubscriber<T>, Subscription {
     public void onSubscribe(@NonNull Subscription s) {
         lastThread = Thread.currentThread();
 
-        if (s == null) {
-            errors.add(new NullPointerException("onSubscribe received a null Subscription"));
-            return;
-        }
         if (!upstream.compareAndSet(null, s)) {
             s.cancel();
             if (upstream.get() != SubscriptionHelper.CANCELLED) {
@@ -168,10 +164,6 @@ implements FlowableSubscriber<T>, Subscription {
 
         values.add(t);
 
-        if (t == null) {
-            errors.add(new NullPointerException("onNext received a null value"));
-        }
-
         downstream.onNext(t);
     }
 
@@ -186,11 +178,7 @@ implements FlowableSubscriber<T>, Subscription {
         try {
             lastThread = Thread.currentThread();
 
-            if (t == null) {
-                errors.add(new NullPointerException("onError received a null Throwable"));
-            } else {
-                errors.add(t);
-            }
+            errors.add(t);
 
             downstream.onError(t);
         } finally {

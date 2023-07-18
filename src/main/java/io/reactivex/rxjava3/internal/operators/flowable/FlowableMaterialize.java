@@ -19,6 +19,8 @@ import io.reactivex.rxjava3.core.*;
 import io.reactivex.rxjava3.internal.subscribers.SinglePostCompleteSubscriber;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 
+import java.util.Objects;
+
 public final class FlowableMaterialize<T> extends AbstractFlowableWithUpstream<T, Notification<T>> {
 
     public FlowableMaterialize(Flowable<T> source) {
@@ -57,7 +59,7 @@ public final class FlowableMaterialize<T> extends AbstractFlowableWithUpstream<T
         @Override
         protected void onDrop(Notification<T> n) {
             if (n.isOnError()) {
-                RxJavaPlugins.onError(n.getError());
+                RxJavaPlugins.onError(Objects.requireNonNull(n.getError()));
             }
         }
     }

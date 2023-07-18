@@ -190,6 +190,7 @@ public final class FlowableTakeLastTimed<T> extends AbstractFlowableWithUpstream
                         @SuppressWarnings("unchecked")
                         T o = (T)q.poll();
 
+                        assert o != null;
                         a.onNext(o);
 
                         e++;

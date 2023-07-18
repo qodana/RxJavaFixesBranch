@@ -167,6 +167,7 @@ public final class FlowableSkipLastTimed<T> extends AbstractFlowableWithUpstream
                     @SuppressWarnings("unchecked")
                     T v = (T)q.poll();
 
+                    assert v != null;
                     a.onNext(v);
 
                     e++;

@@ -232,7 +232,7 @@ public final class FlowableGroupJoin<TLeft, TRight, TLeftEnd, TRightEnd, R> exte
 
                     Object val = q.poll();
 
-                    if (mode == LEFT_VALUE) {
+                    if (mode.equals(LEFT_VALUE)) {
                         @SuppressWarnings("unchecked")
                         TLeft left = (TLeft)val;
 
@@ -284,7 +284,7 @@ public final class FlowableGroupJoin<TLeft, TRight, TLeftEnd, TRightEnd, R> exte
                             up.onNext(right);
                         }
                     }
-                    else if (mode == RIGHT_VALUE) {
+                    else if (mode.equals(RIGHT_VALUE)) {
                         @SuppressWarnings("unchecked")
                         TRight right = (TRight)val;
 
@@ -318,9 +318,10 @@ public final class FlowableGroupJoin<TLeft, TRight, TLeftEnd, TRightEnd, R> exte
                             up.onNext(right);
                         }
                     }
-                    else if (mode == LEFT_CLOSE) {
+                    else if (mode.equals(LEFT_CLOSE)) {
                         LeftRightEndSubscriber end = (LeftRightEndSubscriber)val;
 
+                        assert end != null;
                         UnicastProcessor<TRight> up = lefts.remove(end.index);
                         disposables.remove(end);
                         if (up != null) {
@@ -330,6 +331,7 @@ public final class FlowableGroupJoin<TLeft, TRight, TLeftEnd, TRightEnd, R> exte
                     else {
                         LeftRightEndSubscriber end = (LeftRightEndSubscriber)val;
 
+                        assert end != null;
                         rights.remove(end.index);
                         disposables.remove(end);
                     }

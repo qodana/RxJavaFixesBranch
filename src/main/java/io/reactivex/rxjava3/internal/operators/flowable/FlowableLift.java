@@ -42,10 +42,6 @@ public final class FlowableLift<R, T> extends AbstractFlowableWithUpstream<T, R>
         try {
             Subscriber<? super T> st = operator.apply(s);
 
-            if (st == null) {
-                throw new NullPointerException("Operator " + operator + " returned a null Subscriber");
-            }
-
             source.subscribe(st);
         } catch (NullPointerException e) { // NOPMD
             throw e;

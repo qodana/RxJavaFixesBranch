@@ -119,6 +119,7 @@ public final class SingleTimeout<T> extends Single<T> {
                     downstream.onError(new TimeoutException(timeoutMessage(timeout, unit)));
                 } else {
                     this.other = null;
+                    assert fallback != null;
                     other.subscribe(fallback);
                 }
             }

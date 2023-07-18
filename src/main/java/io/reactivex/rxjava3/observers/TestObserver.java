@@ -83,10 +83,6 @@ implements Observer<T>, Disposable, MaybeObserver<T>, SingleObserver<T>, Complet
     public void onSubscribe(@NonNull Disposable d) {
         lastThread = Thread.currentThread();
 
-        if (d == null) {
-            errors.add(new NullPointerException("onSubscribe received a null Subscription"));
-            return;
-        }
         if (!upstream.compareAndSet(null, d)) {
             d.dispose();
             if (upstream.get() != DisposableHelper.DISPOSED) {
@@ -111,10 +107,6 @@ implements Observer<T>, Disposable, MaybeObserver<T>, SingleObserver<T>, Complet
 
         values.add(t);
 
-        if (t == null) {
-            errors.add(new NullPointerException("onNext received a null value"));
-        }
-
         downstream.onNext(t);
     }
 
@@ -129,11 +121,7 @@ implements Observer<T>, Disposable, MaybeObserver<T>, SingleObserver<T>, Complet
 
         try {
             lastThread = Thread.currentThread();
-            if (t == null) {
-                errors.add(new NullPointerException("onError received a null Throwable"));
-            } else {
-                errors.add(t);
-            }
+            errors.add(t);
 
             downstream.onError(t);
         } finally {

@@ -14,6 +14,7 @@
 package io.reactivex.rxjava3.internal.operators.flowable;
 
 import java.util.ArrayDeque;
+import java.util.Objects;
 
 import org.reactivestreams.*;
 
@@ -58,7 +59,7 @@ public final class FlowableSkipLast<T> extends AbstractFlowableWithUpstream<T, T
         @Override
         public void onNext(T t) {
             if (skip == size()) {
-                downstream.onNext(poll());
+                downstream.onNext(Objects.requireNonNull(poll()));
             } else {
                 upstream.request(1);
             }

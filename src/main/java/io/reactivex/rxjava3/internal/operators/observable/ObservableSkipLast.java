@@ -14,6 +14,7 @@
 package io.reactivex.rxjava3.internal.operators.observable;
 
 import java.util.ArrayDeque;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.core.*;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -67,7 +68,7 @@ public final class ObservableSkipLast<T> extends AbstractObservableWithUpstream<
         @Override
         public void onNext(T t) {
             if (skip == size()) {
-                downstream.onNext(poll());
+                downstream.onNext(Objects.requireNonNull(poll()));
             }
             offer(t);
         }

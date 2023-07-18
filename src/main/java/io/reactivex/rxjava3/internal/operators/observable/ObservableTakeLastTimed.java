@@ -176,6 +176,7 @@ public final class ObservableTakeLastTimed<T> extends AbstractObservableWithUpst
                     continue;
                 }
 
+                assert o != null;
                 a.onNext(o);
             }
         }

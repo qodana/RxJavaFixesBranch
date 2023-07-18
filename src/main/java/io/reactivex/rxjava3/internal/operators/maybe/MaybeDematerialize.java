@@ -87,11 +87,12 @@ public final class MaybeDematerialize<T, R> extends AbstractMaybeWithUpstream<T,
                 return;
             }
             if (notification.isOnNext()) {
+                assert notification.getValue() != null;
                 downstream.onSuccess(notification.getValue());
             } else if (notification.isOnComplete()) {
                 downstream.onComplete();
             } else {
-                downstream.onError(notification.getError());
+                downstream.onError(Objects.requireNonNull(notification.getError()));
             }
         }
 

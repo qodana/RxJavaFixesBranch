@@ -75,7 +75,7 @@ public final class ObservableDematerialize<T, R> extends AbstractObservableWithU
                 if (item instanceof Notification) {
                     Notification<?> notification = (Notification<?>)item;
                     if (notification.isOnError()) {
-                        RxJavaPlugins.onError(notification.getError());
+                        RxJavaPlugins.onError(Objects.requireNonNull(notification.getError()));
                     }
                 }
                 return;
@@ -99,6 +99,7 @@ public final class ObservableDematerialize<T, R> extends AbstractObservableWithU
                 upstream.dispose();
                 onComplete();
             } else {
+                assert notification.getValue() != null;
                 downstream.onNext(notification.getValue());
             }
         }

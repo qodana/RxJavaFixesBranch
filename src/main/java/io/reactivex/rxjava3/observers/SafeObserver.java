@@ -85,19 +85,6 @@ public final class SafeObserver<T> implements Observer<T>, Disposable {
             return;
         }
 
-        if (t == null) {
-            Throwable ex = ExceptionHelper.createNullPointerException("onNext called with a null value.");
-            try {
-                upstream.dispose();
-            } catch (Throwable e1) {
-                Exceptions.throwIfFatal(e1);
-                onError(new CompositeException(ex, e1));
-                return;
-            }
-            onError(ex);
-            return;
-        }
-
         try {
             downstream.onNext(t);
         } catch (Throwable e) {
@@ -162,10 +149,6 @@ public final class SafeObserver<T> implements Observer<T>, Disposable {
                 RxJavaPlugins.onError(new CompositeException(t, npe, e));
             }
             return;
-        }
-
-        if (t == null) {
-            t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
         }
 
         try {

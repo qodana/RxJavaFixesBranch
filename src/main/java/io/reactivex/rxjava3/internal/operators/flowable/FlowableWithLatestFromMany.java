@@ -66,6 +66,7 @@ public final class FlowableWithLatestFromMany<T, R> extends AbstractFlowableWith
             others = new Publisher[8];
 
             try {
+                assert otherIterable != null;
                 for (Publisher<?> p : otherIterable) {
                     if (n == others.length) {
                         others = Arrays.copyOf(others, n + (n >> 1));

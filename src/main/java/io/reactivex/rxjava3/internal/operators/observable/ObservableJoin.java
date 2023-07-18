@@ -205,7 +205,7 @@ public final class ObservableJoin<TLeft, TRight, TLeftEnd, TRightEnd, R> extends
 
                     Object val = q.poll();
 
-                    if (mode == LEFT_VALUE) {
+                    if (mode.equals(LEFT_VALUE)) {
                         @SuppressWarnings("unchecked")
                         TLeft left = (TLeft)val;
 
@@ -248,7 +248,7 @@ public final class ObservableJoin<TLeft, TRight, TLeftEnd, TRightEnd, R> extends
                             a.onNext(w);
                         }
                     }
-                    else if (mode == RIGHT_VALUE) {
+                    else if (mode.equals(RIGHT_VALUE)) {
                         @SuppressWarnings("unchecked")
                         TRight right = (TRight)val;
 
@@ -292,14 +292,16 @@ public final class ObservableJoin<TLeft, TRight, TLeftEnd, TRightEnd, R> extends
                             a.onNext(w);
                         }
                     }
-                    else if (mode == LEFT_CLOSE) {
+                    else if (mode.equals(LEFT_CLOSE)) {
                         LeftRightEndObserver end = (LeftRightEndObserver)val;
 
+                        assert end != null;
                         lefts.remove(end.index);
                         disposables.remove(end);
                     } else {
                         LeftRightEndObserver end = (LeftRightEndObserver)val;
 
+                        assert end != null;
                         rights.remove(end.index);
                         disposables.remove(end);
                     }

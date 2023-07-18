@@ -79,6 +79,7 @@ extends Flowable<R> {
             sources = new Publisher[8];
 
             try {
+                assert iterable != null;
                 for (Publisher<? extends T> p : iterable) {
                     if (count == sources.length) {
                         Publisher<? extends T>[] b = new Publisher[count + (count >> 2)];

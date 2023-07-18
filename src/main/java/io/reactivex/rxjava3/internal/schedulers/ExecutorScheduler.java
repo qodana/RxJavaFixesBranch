@@ -259,6 +259,7 @@ public final class ExecutorScheduler extends Scheduler {
             }
 
             Runnable run = q.poll();
+            assert run != null;
             run.run(); // never null because of offer + increment happens first
 
             if (disposed) {

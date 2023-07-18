@@ -14,6 +14,7 @@
 package io.reactivex.rxjava3.internal.operators.observable;
 
 import java.util.ArrayDeque;
+import java.util.Objects;
 import java.util.concurrent.atomic.*;
 
 import io.reactivex.rxjava3.core.*;
@@ -209,7 +210,7 @@ public final class ObservableWindow<T> extends AbstractObservableWithUpstream<T,
             }
 
             if (c >= count) {
-                ws.poll().onComplete();
+                Objects.requireNonNull(ws.poll()).onComplete();
                 if (ws.isEmpty() && cancelled.get()) {
                     return;
                 }

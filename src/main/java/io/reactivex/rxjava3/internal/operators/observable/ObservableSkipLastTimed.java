@@ -185,6 +185,7 @@ public final class ObservableSkipLastTimed<T> extends AbstractObservableWithUpst
                     @SuppressWarnings("unchecked")
                     T v = (T)q.poll();
 
+                    assert v != null;
                     a.onNext(v);
                 }
 

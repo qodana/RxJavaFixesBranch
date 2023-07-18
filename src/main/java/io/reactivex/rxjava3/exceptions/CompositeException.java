@@ -61,19 +61,14 @@ public final class CompositeException extends RuntimeException {
      */
     public CompositeException(@NonNull Iterable<? extends Throwable> errors) {
         Set<Throwable> deDupedExceptions = new LinkedHashSet<>();
-        if (errors != null) {
-            for (Throwable ex : errors) {
-                if (ex instanceof CompositeException) {
-                    deDupedExceptions.addAll(((CompositeException) ex).getExceptions());
-                } else
-                if (ex != null) {
-                    deDupedExceptions.add(ex);
-                } else {
-                    deDupedExceptions.add(new NullPointerException("Throwable was null!"));
-                }
+        for (Throwable ex : errors) {
+            if (ex instanceof CompositeException) {
+                deDupedExceptions.addAll(((CompositeException) ex).getExceptions());
+            } else if (ex != null) {
+                deDupedExceptions.add(ex);
+            } else {
+                deDupedExceptions.add(new NullPointerException("Throwable was null!"));
             }
-        } else {
-            deDupedExceptions.add(new NullPointerException("errors was null"));
         }
         if (deDupedExceptions.isEmpty()) {
             throw new IllegalArgumentException("errors is empty");

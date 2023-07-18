@@ -392,6 +392,7 @@ public final class FlowableBuffer<T, C extends Collection<? super T>> extends Ab
 
             C b = bs.peek();
 
+            assert b != null;
             if (b.size() + 1 == size) {
                 bs.poll();
 

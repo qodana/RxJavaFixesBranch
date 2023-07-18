@@ -365,12 +365,8 @@ public final class RxJavaPlugins {
     public static void onError(@NonNull Throwable error) {
         Consumer<? super Throwable> f = errorHandler;
 
-        if (error == null) {
-            error = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-        } else {
-            if (!isBug(error)) {
-                error = new UndeliverableException(error);
-            }
+        if (!isBug(error)) {
+            error = new UndeliverableException(error);
         }
 
         if (f != null) {
